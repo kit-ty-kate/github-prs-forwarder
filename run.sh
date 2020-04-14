@@ -8,7 +8,7 @@ copy_prs() {
     prs=$(curl -sL 'https://api.github.com/repos/ocaml/opam-repository/pulls?state=open')
     len=$(echo "$prs" | jq '.[] | length')
 
-    for i in $(seq "$len"); do
+    for i in $(seq -s ' ' "$len"); do
         pr=$(echo "$prs" | jq ".[$i]")
         pr_number=$(echo "$pr" | jq '.number')
         diff_url=$(echo "$pr" | jq -r '.diff_url')
