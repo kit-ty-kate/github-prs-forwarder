@@ -18,7 +18,11 @@ for i in $(seq "$len"); do
     diff_url=$(echo "$pr" | jq -r '.diff_url')
     branch_name="github_pr_autocopy__${pr_number}"
 
-    git switch -c "$branch_name" master
+    if git branch -r | grep -q "$branch_name"; then
+        git switch "$branch_name"
+    else
+        git switch -c "$branch_name" master
+    fi
     curl -sL "$diff_url" | patch -p1
     git add *
     git commit -m 'test'
