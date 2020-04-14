@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 copy_prs() {
     git remote add upstream git://github.com/ocaml/opam-repository.git
