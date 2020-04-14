@@ -33,7 +33,7 @@ for i in $(seq "$len"); do
         git add *
         git commit -m 'test'
         git push origin "$branch_name"
-    elif echo "$patch" | patch -p1 -R -s --dry-run; then
+    elif echo "$patch" | patch -p1 -R -f -s --dry-run; then
         echo
         echo PR already up-to-date
     else
@@ -41,6 +41,6 @@ for i in $(seq "$len"); do
         echo "$patch" | patch -p1 -N -s
         git add *
         git commit -m 'test'
-        git push origin "$branch_name"
+        git push --force-with-lease origin "$branch_name"
     fi
 done
