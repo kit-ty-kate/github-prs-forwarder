@@ -19,7 +19,7 @@ for i in $(seq "$len"); do
     pr=$(echo "$prs" | jq ".[$i]")
     pr_number=$(echo "$pr" | jq '.number')
     diff_url=$(echo "$pr" | jq -r '.diff_url')
-    branch_name="github_prs_autocopy__${pr_number}"
+    branch_name="github_prs_forwarder__${pr_number}"
 
     echo
     echo
