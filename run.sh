@@ -1,14 +1,17 @@
 #!/bin/bash -e
 
-git clone git@github.com:kit-ty-kate/opam-repository.git
-cd opam-repository
-trap 'cd .. && rm -rf opam-repository && exit' EXIT
+src=ocaml/opam-repository
+dst=kit-ty-kate/opam-repository
 
-git remote add upstream git://github.com/ocaml/opam-repository.git
+git clone "git@github.com:$dst.git" repo
+cd repo
+trap 'cd .. && rm -rf repo && exit' EXIT
+
+git remote add upstream "git://github.com/$src.git"
 git pull --ff-only upstream master
 git push origin master
 
-prs=$(curl -sL 'https://api.github.com/repos/ocaml/opam-repository/pulls?state=open')
+prs=$(curl -sL "https://api.github.com/repos/$src/pulls?state=open")
 len=$(echo "$prs" | jq 'length')
 
 for i in $(seq "$len"); do
