@@ -18,6 +18,11 @@ for i in $(seq "$len"); do
     diff_url=$(echo "$pr" | jq -r '.diff_url')
     branch_name="github_pr_autocopy__${pr_number}"
 
+    echo
+    echo
+    echo "--------- PR number $pr_number -----------"
+    echo
+
     if git branch -r | grep -q "$branch_name"; then
         git switch "$branch_name"
     else
@@ -28,6 +33,7 @@ for i in $(seq "$len"); do
         git commit -m 'test'
         git push origin "$branch_name"
     else
+        echo
         echo PR already up-to-date
     fi
 done
