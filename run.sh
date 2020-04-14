@@ -9,6 +9,7 @@ copy_prs() {
     len=$(echo "$prs" | jq 'length')
 
     for i in $(seq "$len"); do
+        i=$(echo "$i - 1" | bc)
         pr=$(echo "$prs" | jq ".[$i]")
         pr_number=$(echo "$pr" | jq '.number')
         diff_url=$(echo "$pr" | jq -r '.diff_url')
