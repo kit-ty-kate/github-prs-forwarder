@@ -33,7 +33,7 @@ for i in $(seq "$len"); do
         git add *
         git commit -m 'test'
         git push origin "$branch_name"
-    elif echo "$patch" | patch -p1 -R -s; then
+    elif echo "$patch" | patch -p1 -R -s --dry-run; then
         echo
         echo PR already up-to-date
     else
