@@ -23,8 +23,11 @@ for i in $(seq "$len"); do
     else
         git switch -c "$branch_name" master
     fi
-    curl -sL "$diff_url" | patch -p1
-    git add *
-    git commit -m 'test'
-    git push origin "$branch_name"
+    if curl -sL "$diff_url" | patch -p1 -N; then
+        git add *
+        git commit -m 'test'
+        git push origin "$branch_name"
+    else
+        echo PR already up-to-date
+    fi
 done
